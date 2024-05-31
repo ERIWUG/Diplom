@@ -1,0 +1,68 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div class="upper-content">
+<header>
+   <nav>
+       <div class="navigation-section">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="user-left-div">
+                    <a href="/Home/Index">MySite</a>
+                    <a href="/UserPage/@User.Identity.Name">@User.Identity.Name</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a href="/Home/AdminPanel/1">AdminPanel</a>
+                    }
+                </div>
+                
+                <div class="navigation-item">
+                    <form asp-controller="Home" asp-action="SearchPage" method="post">
+                                <input type="text" id="search-input" name="SearchField" placeholder="Поиск"></input>
+                                <input type="submit" id="search-button" value="🔎"></input>
+                    </form>
+                    
+
+
+                    <a href ="/UserPage/@User.Identity.Name">Профиль</a>
+                    <a href="/Home/GenerateTest">Создать Анкету</a>
+                    <a href ="/logout">Logout</a>
+                </div>
+            }
+            else
+            {<div>
+                <a href="/Home/Index">MySite</a>
+                <a href="/Home/LoginPage">Login</a>
+               </div>
+                        <div class="navigation-item">
+                            <form asp-controller="Home" asp-action="SearchPage" method="post">
+                                <input type="text" id="search-input" name="SearchField" placeholder="Поиск"></input>
+                                <input type="submit" id="search-button" value="🔎"></input>
+                            </form>
+                        </div>
+            }
+        </div>
+
+   </nav>
+</header>
+<div class="pageContent">
+
+        @RenderBody()
+</div>
+
+</div>
+        <footer>
+            Spec My Index
+
+        </footer>
+
+</body>
+</html>

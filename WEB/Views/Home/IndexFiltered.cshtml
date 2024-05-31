@@ -1,0 +1,217 @@
+﻿@using AppTest.Models.Entities
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+
+
+    List<TestEntity> Test = ViewBag.TESTS;
+    List<UserEntity> Users = ViewBag.Users;
+
+    List<string> Towns = ViewBag.Towns;
+    List<string> Country = ViewBag.Countries;
+
+    List<string> CheckedTowns = ViewBag.CheckedTowns;
+    List<string> CheckedCountries = ViewBag.CheckedCountries;
+    bool flag = false;
+    int kol = 0;
+
+}
+
+<HeadContent>
+    <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+    <script src="~/js/Index.js" asp-append-version="true"></script>
+</HeadContent>
+
+<body>
+    <div class="body-block">
+        <div class="filter-div">
+            <form asp-action="IndexFiltered" asp-controller="Home" method="post">
+                <div class="filter-element">
+                    <div class="filter-name">
+                        <p>Страна</p>
+                        <input type="button" onclick="Hide(1)" value="⯅" id="country-button"></input>
+                    </div>
+                    <div id="country-item-div" class="filter-item">
+                        @if (Country.Count > 10)
+                        {
+                            
+                            flag = true;
+                            <div class="search-field">
+                                <input type="text" id="search-country" placeholder="name" oninput="Find(1)"></input>
+                                <span>🔎</span>
+                            </div>
+                        }
+                        <div class="search-item">
+                            @foreach (var c in Country)
+                            {
+                                kol++;
+                                if (kol < 10)
+                                {
+                                    string check = CheckedCountries.Contains(c) ? "checked" : "";
+                                    <label class="always-visual-label-country">
+                                        <input type="checkbox" @check class="country-items" name="Country" value="@c">
+                                        @c
+                                    </label>
+                                }
+                                else if (kol == 10)
+                                {
+                                    string check = CheckedCountries.Contains(c) ? "checked" : "";
+                                    <label class="always-visual-label-country">
+                                        <input type="checkbox" @check class="country-items" name="Country" value="@c">
+                                        @c
+                                    </label>
+                                    <input type="button" class="button-filter-div" id="extend-country-button" onclick="ExtendFilter(1)" value="Показать все">
+                                }
+                                else
+                                {
+                                    string check = CheckedCountries.Contains(c) ? "checked" : "";
+                                    <label class="visual-label-country" style="display:none">
+                                        <input type="checkbox" @check class="country-items" name="Country" value="@c">
+                                        @c
+                                    </label>
+
+                                }
+                            }
+                            <input type="button" id="hide-country-button" class="button-filter-div" style="display:none" onclick="HideFilter(1)" value="Скрыть">
+                            @{
+                                flag = false;
+                                kol = 0;
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-element">
+
+                    <div class="filter-name">
+                        <p>Город</p>
+                        <input type="button" onclick="Hide(2)" value="⯅" id="town-button"></input>
+                    </div>
+                    <div id="town-item-div" class="filter-item">
+                        @if (Towns.Count > 15)
+                        {
+                            flag = true;
+                            <div class="search-field">
+                                <input type="text" id="search-town" placeholder="name" oninput="Find(2)"></input>
+                                <span>🔎</span>
+                            </div>
+                        }
+                        <div class="search-item">
+                            @foreach (var c in Towns)
+                            {
+                                kol++;
+                                if (kol < 10)
+                                {
+                                    string check = CheckedTowns.Contains(c) ? "checked" : "";
+                                    <label class="always-visual-label-town">
+                                        <input type="checkbox" @check class="town-items" name="Town" value="@c">
+                                        @c
+                                    </label>
+                                }
+                                else if (kol == 10)
+                                {
+                                    
+                                    string check = CheckedTowns.Contains(c) ? "checked" : "";
+                                    <label class="always-visual-label-town">
+                                        <input type="checkbox" @check @check class="town-items" name="Town" value="@c">
+                                        @c
+                                    </label>
+                                    <input type="button" class="button-filter-div" id="extend-town-button" onclick="ExtendFilter(2)" value="Показать все">
+                                }
+                                else
+                                {
+                                    string check = CheckedTowns.Contains(c) ? "checked" : "";
+                                    <label class="visual-label-town" style="display:none">
+                                        <input type="checkbox" @check class="town-items" name="Town" value="@c">
+                                        @c
+                                    </label>
+
+                                }
+                            }
+                            <input type="button" id="hide-town-button" class="button-filter-div" style="display:none" onclick="HideFilter(2)" value="Скрыть">
+                            @{
+                                flag = false;
+                                kol = 0;
+                            }
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="submit-filter-input">
+
+                    <input type="submit" value="Применить фильтр"></input>
+                </div>
+            </form>
+
+
+        </div>
+
+
+
+
+
+
+
+        <div class="test-div">
+            @foreach (var c in Test)
+            {
+                if (User.IsInRole("User") || !c.isRequiredAuthorization)
+                {
+                    <div class="test-item">
+                        <div class="test-name">
+                            <label>
+                                @c.Name
+                            </label>
+                        </div>
+                        <div class="test-description">
+                            <span>
+                                @c.Description
+                            </span>
+                        </div>
+                        <div class="test-content">
+
+                            <a href="/Home/Test/@c.Id">Перейти к анкете</a>
+
+
+                        </div>
+                    </div>
+                }
+
+
+
+            }
+        </div>
+        <div class="test-count">
+
+
+            <div class="amount-user">
+                <span>Лидеры по кол-ву анкет:</span>
+
+                @foreach (var c in Users)
+                {
+                    <div class="author-amount">
+                        <a href="/UserPage/@c.Login">
+                            <div class="author-href">
+                                <span>@c.Login</span>
+                            </div>
+                        </a>
+
+                        <form asp-action="SearchPage" asp-controller="Home" method="post">
+                            <input type="hidden" name="SearchField" value="@c.Login"></input>
+                            <input type="submit" value="@c.Tests.Count()"></input>
+                        </form>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+
+</body>

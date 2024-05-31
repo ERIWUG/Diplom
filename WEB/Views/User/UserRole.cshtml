@@ -1,0 +1,54 @@
+﻿@using AppTest.Models.Entities
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    UserEntity MyUser = ViewBag.MyUser;
+    List<string> Roles = ViewBag.Roles;
+    List<int> MyInts = ViewBag.HelpInt;
+
+    int i = 0;
+}
+<HeadContent>
+    <link rel="stylesheet" href="~/css/AdminPanel1.css" asp-append-version="true" />
+</HeadContent>
+
+
+
+
+<div class="main-table">
+    <form asp-action="RoleChange" asp-controller="User" method="post">
+        <table>
+            <tr>
+                <td></td>
+                @foreach(var q in Roles)
+                {
+                    <td>@q</td>
+                }
+            </tr>
+
+            <tr>
+                <td>@MyUser.Login</td>
+                @foreach(var q in MyInts)
+                {
+                    
+                    if (q == 1)
+                    {
+                       <td> <input type="checkbox" checked id="CheckRole-@i" value="@i" name="CheckRole"></input></td>
+                    }
+                    else
+                    {
+                        <td> <input type="checkbox" id="CheckRole-@i" value="@i" name="CheckRole"></input></td>
+                    }
+                    i++;
+                }
+            </tr>
+
+
+        </table>
+        <input type="hidden" name="login" value="@MyUser.Login"></input>
+        <input type="submit" id="SubmitButton" placeholder="Зафиксировать Изменения"></input>
+        <input type="button" id="ResetButton" onclick="location.href='/Home/AdminPanel/@MyUser.Login/Role';" value="Сброс изменений"></input>
+
+    </form>
+
+
+</div>

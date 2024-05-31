@@ -1,0 +1,109 @@
+﻿.body-block {
+    display:flex;
+    flex-direction:column;
+    margin-left:5%;
+}
+
+hr{
+    width:100%;
+}
+.post-sectionDiv{
+    display:flex;
+    flex-direction:column;
+    width:90%;
+    
+    align-self:center;
+}
+.user-information-div {
+    display: flex;
+    flex-direction: row;
+}
+
+.post-section-div{
+    display:flex;
+    flex-wrap:wrap;
+}
+.post-section-div>*{
+    margin:20px;
+}
+.add-post-section{
+    align-self:center;
+
+}
+.all-information-div{
+    display:flex;
+    flex-direction:column;
+}
+
+.owner-name-div{
+    display:flex;
+    justify-content:flex-start;
+}
+
+.right-div{
+    display:flex;
+    justify-content:flex-end;
+    margin-left:20px;
+}
+.center-div{
+    display:flex;
+    flex-direction:column;
+}
+
+.post-div{
+    display:flex;
+    flex-direction:column;
+    width:fit-content;
+    margin-top:20px;
+    margin-bottom:10px;
+    padding:15px;
+    border: 3px outset black;
+    border-radius:20px;
+    min-width:400px;
+    background-color:#fbf9f0;
+}
+.post-header{
+    display:flex;
+    justify-content:space-between;
+}
+
+
+.center-div>a{
+    color:black;
+}
+
+
+
+.post-add-div{
+    display:flex;
+    flex-direction:column;
+    width:fit-content;
+}
+
+.post-add-button{
+    display:flex;
+    justify-content:space-between;
+}
+.post-add-div>textarea{
+    min-width:400px;
+    min-height:200px;
+}
+
+.post-add-div>*{
+    margin-bottom:10px;
+}
+.post-add-button>*{
+    padding:5px;
+}
+#postTitleInput{
+    padding:5px;
+    padding-left:20px;
+}
+
+.ReportButtonPost {
+    border: none;
+    background: inherit;
+    font-size: 18px;
+    cursor: pointer;
+}
+

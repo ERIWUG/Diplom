@@ -1,0 +1,64 @@
+﻿.body-block {
+    display: flex;
+    flex-direction: column;
+}
+
+#main-form{
+    margin-left:20px;
+}
+
+.Questions {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.Answers{
+    width:50%;
+}
+
+#main-form > input[type=submit] {
+    margin-left: 10px;
+    padding: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.Images {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction:row;
+    
+}
+.Images>img{
+    width:300px;
+    height:200px;
+   margin-left:20px;
+
+}
+
+.QuestionContent{
+    display:flex;
+    flex-direction:Column;
+    justify-content:flex-start;
+}
+.Answers {
+    display: flex;
+    flex-direction: column;
+}
+.nav-div{
+    display:flex;
+    flex-direction:row;
+    margin-bottom:20px;
+}
+
+.nav-div>*{
+    margin-right:5px;
+    padding:3px 5px 3px 5px;
+    cursor:pointer;
+}
+
+.QuestionImage>img{
+    width:300px;
+    height:200px;
+}

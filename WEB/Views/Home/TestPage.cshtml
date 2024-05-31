@@ -1,0 +1,196 @@
+﻿@using AppTest.Models.Entities
+@*
+  
+*@
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+    bool Flag = ViewBag.Flag;
+    TestEntity Test = ViewBag.Test;
+}
+
+
+<HeadContent>
+    <script src="~/js/TestPage.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/css/TestPage.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/CommentSection.css" asp-append-version="true" />
+</HeadContent>
+<body>
+
+    @if (Flag)
+    {
+
+        <div id="ModuleDiv">
+            <div id="ModulePage">
+                <div class="popup-content">
+                    <h1>Вы уже проходили эту анкету!</h1>
+                    <p>Так же вы можете пройти её заново, но предыдущий результат будет утерян</p>
+                    <p>Желаете продолжить?</p>
+
+                    <div class="popup-buttons">
+                        <button onclick="HidePopUp()">Да</button>
+                        <button onclick="location.href='/Home/Index';">Нет</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div> 
+    }
+
+    <div class="body-block">
+        <div class="test-div">
+            <div class="test-block">
+                <label>
+
+                    @Test.Name
+                </label>
+
+                <label>
+                    @Test.Description
+                </label>
+
+                @if (!Test.isClosed)
+                {
+                    <a href ="/UserPage/@Test.Author.Login/Tests/@Test.Id">Анализ Анкеты</a>
+                }
+
+                <div class="test-button-section">
+                    
+                    <form asp-action="ReportTest" asp-controller="Home" method="post" >
+                        <input type="button" id="ButtonReportSubmit" value="Пожаловаться" onclick="ShowReportSubmit()"></input>
+                        <input type="submit" id="ButtonReportSubmitConfirmed" style="display:none" id="ButtonReportSubmit" value="Пожаловаться" ></input>
+                        <input type="hidden" name="TestID" value="@Test.Id"></input>
+                    </form>
+                   
+                   
+
+                    <form asp-action="TestAction" asp-controller="Home">
+                        <input type="submit" class="SubmitTestButton" value="Перейти к анкете"></input>
+                        <input type="hidden" value="@Test.Id" name="TestID"></input>
+                    </form>
+                </div>
+            </div>
+
+            <div class="author-block">
+                <a href="/UserPage/@Test.Author.Login">
+                    @if (Test.Author.IsVerified)
+                    {
+                        <p>
+                            @Test.Author.Login ☑
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            @Test.Author.Login
+                        </p>
+                    }
+                   
+
+
+                    
+                </a>
+                <p>@Test.Author.Email</p>
+            </div>
+        </div>
+        <div class="This-Comment-div">
+
+        <div class="comment-div">
+            @if (!User.IsInRole("User"))
+            {
+                <div class="error-notAuthentificated">
+                    <p>Вы не вошли в свой личный кабинет!</p>
+                    <p>Возможность комментирования отключена</p>
+
+                </div>
+            }
+            else
+            {
+                <div class="comment-add-section">
+                    <form asp-action="AddCommentTest" asp-controller="Home" method="post">
+                        <textarea id="TextAreaComment" placeholder="Введите свой комментарий" name="PostText"></textarea>
+                        <div class="comment-add-buttons">
+                            <div></div>
+                            <input type="submit" value="Опубликовать"></input>
+                        </div>
+                        <input type="hidden" name="TestID" value="@Test.Id"></input>
+                    </form>
+
+
+
+                </div>
+            }
+                <hr />
+            <div class="comment-section">
+                @foreach (var q in Test.Comments)
+                {
+                        <div class="comment-div">
+                            <div class="comment-header">
+                                @if (q.User.IsVerified)
+                                {
+                                    <a href="/UserPage/@q.User.Login"><p>@q.User.Login ☑</p></a>
+
+                                }
+                                else
+                                {
+                                    <a href="/UserPage/@q.User.Login"><p>@q.User.Login </p></a>
+                                }
+
+
+                            <div class="post-buttontime">
+                                <p>@q.Time</p>
+                                    @{
+                                        string kl = Flag ? "display:none" : "display:flex";
+                                    }
+                                <div style=@kl class="extend-button">
+                                    <ul>
+                                        <li>
+                                            <span>•••</span>
+                                            <ul>
+                                                    
+                                                    <li>
+                                                        <input type="button" class="ReportButtonPost" value="Пожаловаться" onclick="ShowSubmitComment(@q.Id)"></input>
+                                                    </li>
+                                                    @if (q.User.Login == User.Identity.Name)
+                                                    {
+                                                        <li>
+                                                            <form asp-action="DeleteCommentTest" asp-controller="Home" method="post">
+                                                                <input type="submit" value="Удалить" />
+                                                                <input type="hidden" name="CommentID" value="@q.Id" />
+                                                                <input type="hidden" name="Test" value="@Test.Id"></input>
+
+                                                            </form>
+                                                        </li>
+                                                    }
+                                            </ul>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="comment-text">
+                            @q.Text
+
+                            @foreach (var i in q.Images)
+                            {
+                                <img src="@i.src"></img>
+                            }
+                        </div>
+
+
+                    </div>
+                }
+            </div>
+            
+            
+
+        </div>
+
+
+        </div>
+    </div>
+    </div>
+</body>

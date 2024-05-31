@@ -1,0 +1,62 @@
+﻿@using AppTest.Models.Entities
+
+@{
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+    List<UserEntity>Users = ViewBag.Users ;
+    List<TestEntity> Tests = ViewBag.Tests;
+    String Text = ViewBag.Text;
+    int SearchCount = Users.Count() + Tests.Count();
+}
+
+<HeadContent>
+    <link rel="stylesheet" href="~/css/SearchPage.css" asp-append-version="true" />
+</HeadContent>
+
+<div class="body-block">
+<div class="seach-information">
+<span>Информация по поиску - @Text</span>
+<span>Найдено - @SearchCount</span>
+    </div>
+
+    <div class="test-div">
+            @foreach (var c in Tests)
+            {
+                if (User.IsInRole("User") || !c.isRequiredAuthorization)
+                {
+                    <div class="test-item">
+                        <div class="test-name">
+                            <label>
+                                @c.Name
+                            </label>
+                        </div>
+                        <div class="test-description">
+                            <label>
+                                @c.Description
+                            </label>
+                        </div>
+                    <a href="/Home/Test/@c.Id">
+                        <div class="test-content">
+
+                            <span>Перейти к тесту</span>
+
+                        </div>
+                    </a>
+                    </div>
+                }
+
+
+
+            }
+    </div>
+
+    <div class="user-div">
+            @foreach(var c in Users)
+            {
+                <div class="user-item">
+                    <a href ="/UserPage/@c.Login">@c.Login</a>
+                </div>
+            }
+        </div>
+
+
+    </div>

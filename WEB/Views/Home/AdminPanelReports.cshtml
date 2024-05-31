@@ -1,0 +1,181 @@
+﻿@using AppTest.Models.Entities
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    List<TestEntity> Tests = ViewBag.Tests;
+    List<CommentEntity> Comments = ViewBag.Comments;
+    List<PostEntity> Posts = ViewBag.Posts;
+    int i = 0;
+}
+<HeadContent>
+    <link rel="stylesheet" href="~/css/AdminPanelReports.css" asp-append-version="true" />
+    <script src="~/js/AdminPanelReports.js" asp-append-version="true"></script>
+</HeadContent>
+
+
+
+<div class="reports-table"> 
+    <div class="test-div">
+        <p>Tests</p>
+        @if (Tests.Count == 0)
+        {
+            <p>Нет жалоб</p>
+        }
+        else
+        {
+            <table id="test-table">
+                <tr>
+                    <td>id</td>
+                    <td>name</td>
+                    <td>Reports Amount</td>
+                    <td>DeleteTest</td>
+                    <td>DeleteReports</td>
+                    <td></td>
+                </tr>
+           
+            @foreach(var c in Tests)
+            {
+                <form asp-action="TestProcess" asp-asp-controller="Home" method="post">
+
+                
+                <tr>
+                
+                <td>
+                    <input type="text" size="4" name="TestID" readonly value="@c.Id" />
+                </td>
+                <td class="href-td">
+                    <a href="/Home/Test/@c.Id">@c.Name</a>
+                </td>
+
+                <td>
+                    <input type="text" readonly value="@c.Reports.Count" ></input>
+                </td>
+
+                <td>
+                    <input type="radio" value="1" name="TestChoise"></input>
+                </td>
+                    <td>
+                        <input type="radio" value="2" name="TestChoise"></input>
+                    </td>
+                    <td>
+                        <input type="submit" value="Принять Решение"></input>
+
+                    </td>
+                </tr>
+                    </form>
+            }
+            </table>
+        }
+    </div>
+
+
+
+    <div class="post-div">
+        <p>Posts</p>
+        @if (Posts.Count == 0)
+        {
+            <p>Нет жалоб</p>
+        }
+        else
+        {
+            <table id="post-table">
+                <tr>
+                    <td>id</td>
+                    <td>name</td>
+                    <td>Reports Amount</td>
+                    <td>DeletePost</td>
+                    <td>DeleteReports</td>
+                    <td></td>
+                </tr>
+
+                @foreach (var c in Posts)
+                {
+                    <form asp-action="PostProcess" asp-asp-controller="Home" method="post">
+
+
+                    <tr>
+
+                        <td>
+                            <input type="text" size="4" name="TestID" readonly value="@c.Id" />
+                        </td>
+                        <td class="href-td">
+                           
+                            <a href="/Home/ShowPosts/@c.Id/1">Post</a>
+                        </td>
+
+                        <td>
+                            <input type="text" readonly value="@c.Reports.Count"></input>
+                        </td>
+
+                        <td>
+                            <input type="radio" value="1" name="TestChoise"></input>
+                        </td>
+                        <td>
+                            <input type="radio" value="2" name="TestChoise"></input>
+                        </td>
+                        <td>
+                            <input type="submit" value="Принять Решение"></input>
+
+                        </td>
+                    </tr>
+                    </form>
+                }
+            </table>
+        }
+    </div>
+
+    <div class="Comment-div">
+        <p>Comments</p>
+        @if (Posts.Count == 0)
+        {
+            <p>Нет жалоб</p>
+        }
+        else
+        {
+            <table id="comment-table">
+                <tr>
+                    <td>id</td>
+                    <td>name</td>
+                    <td>Reports Amount</td>
+                    <td>DeleteComment</td>
+                    <td>DeleteReports</td>
+                    <td></td>
+                </tr>
+
+                @foreach (var c in Comments)
+                {
+                    <form asp-action="CommentProcess" asp-asp-controller="Home" method="post">
+
+
+                    <tr>
+
+                        <td>
+                            <input type="text" size="4" name="TestID" readonly value="@c.Id" />
+                        </td>
+                        <td class="href-td">
+                            <a href="/Home/ShowPosts/@c.Id/2">Comment</a>
+                        </td>
+
+                        <td>
+                            <input type="text" readonly value="@c.Reports.Count"></input>
+                        </td>
+
+                        <td>
+                            <input type="radio" value="1" name="TestChoise"></input>
+                        </td>
+                        <td>
+                            <input type="radio" value="2" name="TestChoise"></input>
+                        </td>
+                        <td>
+                            <input type="submit" value="Принять Решение"></input>
+
+                        </td>
+                    </tr>
+                    </form>
+                }
+            </table>
+        }
+    </div>
+
+
+
+</div>

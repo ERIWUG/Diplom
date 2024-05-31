@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html >
+<head>
+    <script src="~/js/LoginPage.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/css/LoginPage.css" asp-append-version="true" />
+</head>
+
+<body>
+    <form action="/login" method="post">
+
+        
+        <input type="text" class="mywidth" placeholder="Логин/Почта" name="Login"></input>
+        <div class="PasswordDiv">
+            <input type="password" placeholder="Пароль" id="PasswordField" name="Password"></input>
+            <input type="button" value="O" id="ButtonChangeVisibility" onclick="ChangePassVisibility()"></input>
+            
+        </div>
+
+        <div class="formButtons">
+        <input type="submit" value="Войти"></input>
+            <input type="button" onclick="location.href='/Home/Registration';" value="Регистрация"></input>
+        </div>
+        <input type="button" onclick="location.href='/Home/Index';" value="Войти как гость"></input>
+    </form>
+
+
+
+</body>

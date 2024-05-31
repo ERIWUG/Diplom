@@ -1,0 +1,134 @@
+﻿@using AppTest.Models.Entities
+
+
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+    TestEntity Test = ViewBag.Test;
+    int TicketCount = Test.TestContents.Count();
+    int ll = 0;
+}
+<HeadContent>
+    <link rel="stylesheet" href="~/css/TestAction.css" asp-append-version="true" />
+    <script src="~/js/TestAction.js" asp-append-version="true"></script>
+</HeadContent>
+
+
+
+<body>
+    <div class="body-block">
+        
+            <label>
+                @Test.Name
+            </label>
+       
+
+        @{
+            int i = 0;
+        }
+        <form asp-action="TestAnalyze" id="main-form" asp-controller="Home">
+        @foreach(var c in Test.TestContents)
+        {
+                ll = 0;
+                string n = i == 0 ? "display:flex" : "display:none";i++;
+            <div id="question-@i" class="Questions" style="@n">
+                <label>@c.Text</label>
+
+                    @if(c.Image is not null)
+                    {
+                        <div class="QuestionImage">
+                            <img src="@Url.Content(c.Image.src)"></img>
+                        </div>
+                    }
+
+
+                <div class="QuestionContent">
+                        <div class="Images">
+                            @foreach (var x in c.Answers)
+                            {
+                                int l = 0;
+                                if (x.Image is not null)
+                                {
+                                    l++;
+
+                                    <p>@l)</p>
+                                    <img src="@Url.Content(x.Image.src)"></img>
+                                }
+                            }
+                        </div>
+                    <div class="Answers">
+                            @if (c.Answers[0].AnswerType == 4)
+                            {
+                                <label>
+                                    <select name="Answers-@i">
+                                        @foreach( var x in c.Answers)
+                                        {
+                                            ll++;
+                                            string check = ll == 1 ? "true" : "false";
+                                            <option selected=@check value="@x.Id">@x.Text</option>
+                                        }
+                                    </select>
+                                </label>
+                            }
+                            else
+                            {
+                                
+                            
+                                @foreach(var x in c.Answers)
+                                {
+
+                                    ll++;
+                                    string check = ll == 1 ? "checked" : "";
+                                    switch (x.AnswerType)
+                                    {
+                                    
+                                        case 1:
+                                        <label>
+                                                <input type="radio" name="Answers-@i" @check value="@x.Id" placeholder="" />
+                                                @x.Text
+                                            </label>
+                                            break;
+                                        case 2:
+                                            <label>
+                                                <input type="checkbox" name="Answers-@i"  value="@x.Id" placeholder="" />
+                                                @x.Text
+                                            </label>
+                                            break;
+                                        case 3:
+                                            
+                                                <input type="input" name="Answers-@i" value="@x.Id" placeholder="@x.Text" />
+                                               
+                                            
+                                            break;
+                                        default:
+                                            break;
+
+                                    }
+                               
+                                }
+                            }
+                    </div>
+                   
+                </div>
+
+
+            </div>
+        }
+        <input type="hidden" name="TestID" value="@Test.Id"></input>
+        <input type="hidden" value="1" id="ShowQuestionId"></input>
+        <div class="nav-div">
+        @for(int j = 1; j <= TicketCount; j++)
+        {
+                    string c = j == 1 ? "background-color:#e9e9ed" : "background-color:white";
+                    <input type="button" style=@c id="questionButton-@j" value="@j" onclick="GetQuestion(@j)">
+                
+            </input>
+        }
+        </div>
+        <input type="submit" value="Закончить тестирование"></input>
+        </form>
+    </div>
+
+
+</body>

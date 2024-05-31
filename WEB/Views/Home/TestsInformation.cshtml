@@ -1,0 +1,70 @@
+﻿@using AppTest.Models.Entities
+@{
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+    UserEntity MyUser = ViewBag.MyUser;
+    bool flag = ViewBag.Flag;
+    int TestCount = ViewBag.Count;
+    int TestCountAll = ViewBag.CountAll;
+
+}
+
+<HeadContent>
+
+    <link rel="stylesheet" href="~/css/TestsInformation.css" asp-append-version="true" />
+</HeadContent>
+
+<div class="body-block">
+    @if(flag){
+        if(TestCountAll!=0){
+            @foreach(var a in MyUser.Tests)
+            {
+                    <div class="test-div">
+
+                        <label>@a.Name</label>
+                
+                        <div class="test-buttons">
+                            <button onclick="">Редактировать</button>
+                        <button id="left-test-button" onclick="location.href='/UserPage/@MyUser.Login/Tests/@a.Id';">Анализ Результатов</button>
+                        </div>
+                    </div>
+            }
+        }
+        else
+        {
+            <div class="error-testnull">
+                <p>Вы еще не добавили тестов!</p>
+                <p>Вы можете сделать свой тест в верхнем меню!</p>   
+            </div>
+        }
+    }
+    else
+    {
+        if (TestCount == 0)
+        {
+            <div class="error-notPermition">
+                <p>Нет доступных тестов!</p>
+                <p>Пользователь @MyUser.Login еще не добавил(а) открытых тестов.</p>
+                <a href="/UserPage/@MyUser.Login">Вернуться назад</a>
+            </div>
+        }
+        else
+        {
+            @foreach (var a in MyUser.Tests)
+            {
+                if(!a.isClosed){
+                    <div class="test-div">
+
+                        <label>@a.Name</label>
+                        <label>@a.Description</label>
+                        <div class="test-buttons">
+                            
+                            <button  onclick="">Анализ Результатов</button>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    }
+
+
+</div>

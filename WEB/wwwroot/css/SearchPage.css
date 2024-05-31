@@ -1,0 +1,35 @@
+﻿.body-block{
+    display:flex;
+    flex-direction:column;
+}
+.test-div{
+    display:flex;
+    flex-wrap:wrap;
+}
+.test-item{
+    border:2px solid #e2e2e2;
+    margin:5px;
+    padding:10px;
+}
+
+.test-content>span{
+    color:black;
+}
+
+.test-content {
+    margin-top: 10px;
+    border:1px solid #808080;
+    padding:5px;
+    border-radius:20px;
+}
+.user-item>a{
+    color:black;
+}
+.test-name{
+    display:flex;
+    align-content:center;
+    justify-content:center;
+}
+.test-name{
+    margin-bottom:10px;
+}

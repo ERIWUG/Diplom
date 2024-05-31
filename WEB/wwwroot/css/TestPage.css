@@ -1,0 +1,153 @@
+﻿
+#ModuleDiv {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+}
+
+
+#ModulePage {
+    
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.popup-content {
+    margin-bottom: 8%;
+    background: white;
+    padding: 30px;
+    border: 2px solid;
+    border-radius: 20px;
+}
+    .popup-content > h1 {
+        margin-top: 0px;
+    }
+
+.body-block {
+    display: flex;
+    width:100%;
+    flex-direction: column;
+}
+
+
+.popup-buttons {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+
+.test-block{
+    margin-left:10px;
+    display:flex;
+    flex-direction:column;
+    box-shadow:5px 5px 5px black;
+    padding:10px;
+    margin-bottom:15px;
+    border:1px solid #dedede;
+}
+
+.test-button-section{
+    margin-left:10px;
+    margin-right:10px;
+    margin-top:10px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+    .test-button-section>form>input{
+        padding:5px;
+    }
+
+    #ButtonReportSubmit {
+        margin-right: 20px;
+        padding: 5px;
+        background-color: white;
+        font-size: 15px;
+    }
+
+#ButtonReportSubmitConfirmed {
+    margin-right: 20px;
+    padding: 5px;
+    background-color: white;
+    font-size: 15px;
+}
+
+
+.popup-buttons > button {
+    padding-left: 7px;
+    padding-right: 7px;
+    font-size: 15px;
+}
+
+.SubmitTestButton {
+    background-color: white;
+    font-size:15px;
+}
+
+.SubmitTestButton:hover{
+    cursor:pointer;
+}
+.author-block{
+    display:flex;
+    flex-direction:column;
+}
+
+.author-block>a:visited{
+    color:black;
+}
+
+.author-block>a:active{
+    color:black;
+}
+
+    .author-block > a {
+        text-align: center;
+        width: fit-content;
+        border: 1px solid;
+        margin-bottom: 20px;
+    }
+
+.author-block>a>p{
+    margin:0px;
+    padding:8px;
+}
+
+.author-block>p{
+    margin:0px;
+    text-decoration:underline;
+}
+.test-div{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+}
+.This-Comment-div{
+    width:fit-content;
+    margin-left:25%;
+    margin-top:50px;
+}
+
+#TextAreaComment{
+    min-width:300px;
+}
+
+.ReportButtonPost {
+    border: none;
+    background: inherit;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.test-block>a{
+    color:black;
+}

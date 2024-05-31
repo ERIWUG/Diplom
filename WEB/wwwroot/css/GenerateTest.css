@@ -1,0 +1,94 @@
+﻿.questionBlock{
+    display:flex;
+    margin-left:20px;
+    flex-direction:column;
+}
+
+#testModule-div{
+    margin-bottom:60px;
+}
+.question {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.question>*{
+    margin-right:15px;
+}
+
+.question>input{
+    height:25px;
+}
+
+.answerModule{
+    margin-left:20px;
+    margin-bottom:10px;
+
+}
+.answerModule>* {
+    margin-right: 15px;
+}
+
+.answerModule>img{
+    margin-top:20px;
+}
+
+.Answers{
+    display:flex;
+    flex-direction:column;
+}
+.extend-button ul ul {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.2s,opacity 0.2s linear;
+    position: absolute;
+    padding: 0px;
+    left: 34px;
+    top: -10px;
+    background-color: antiquewhite;
+    border: 2px outset;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+.extend-button ul li {
+    padding: 1px;
+    padding-left: 6px;
+    padding-right: 6px;
+    background-color: aliceblue;
+    border: 1px solid #c2b7a1;
+    border-radius: 7px;
+}
+
+.extend-button ul {
+    padding: 0px;
+}
+
+    .extend-button ul ul li {
+        background-color: antiquewhite;
+        border: 0px;
+        cursor: pointer;
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+        .extend-button ul ul li:hover {
+            background-color: #FFE;
+            border: 0px;
+            border-radius: 10px;
+        }
+
+
+.extend-button li {
+    list-style-type: none;
+    position: relative;
+}
+
+    .extend-button li:hover > ul {
+        visibility: visible;
+        opacity: 1;
+        transition-delay: 0s;
+    }

@@ -1,0 +1,29 @@
+﻿@using AppTest.Models.Entities
+@{
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+
+    List<UserEntity> users = ViewBag.Friends;
+
+}
+<HeadContent>
+    
+</HeadContent>
+
+<div class="body-block">
+    @foreach(var c in users)
+    {
+        <div onclick="location.href='/UserPage/@c.Login';" class="friend-div">
+            @if (c.IsVerified)
+            {
+                <span>@c.Login ☑
+                </span>
+            }
+            else
+            {
+                <span>@c.Login</span>
+            }
+            
+            
+        </div>
+    }
+</div>

@@ -1,0 +1,143 @@
+﻿@using AppTest.Models.Entities
+@{
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+    List<Dictionary<string, int>> Answer1 = ViewBag.Answer1;
+    List<Dictionary<string, int>> Answer2 = ViewBag.Answer2;
+    List<List<string>> Answer3 = ViewBag.Answer3;
+    List<Dictionary<string, int>> Answer4 = ViewBag.Answer4;
+
+    List<string> Text1 = ViewBag.Text1;
+    List<string> Text2 = ViewBag.Text2;
+    List<string> Text3 = ViewBag.Text3;
+    List<string> Text4 = ViewBag.Text4;
+
+    int i1 = 0;
+    int i2 = 0;
+    int i3 = 0;
+    int i4 = 0;
+}
+<HeadContent>
+    <script src="~/js/TestAnalizer.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/css/TestAnalizer.css" asp-append-version="true" />
+</HeadContent>
+
+
+
+
+<div class="body-block">
+    
+    <script src="~/js/TestAnalizer.js"></script>
+    @foreach(var q in Answer1)
+    {
+        i1++;
+        <div class="radio-div">
+
+            @{
+                string Labels="[";
+                string Data="[";
+
+                foreach(var l in q.Keys)
+                {
+                    Labels += $"\"{l}\",";
+                    Data += $"\"{q[l]}\",";
+                }
+                Labels += "]";
+                Data += "]";
+
+
+            }
+
+
+            <button onclick="func(@i1,'@Text1[i1-1]', @Labels,@Data)">Тык</button>
+            <span>@Text1[i1-1]</span>
+            <canvas id="donut-@i1">
+            </canvas>
+
+
+
+        </div>
+    }
+
+
+
+
+    @foreach (var q in Answer2)
+    {
+        i2++;
+        <div class="bar-div">
+
+            @{
+                string Labels = "[";
+                string Data = "[";
+
+                foreach (var l in q.Keys)
+                {
+                    Labels += $"\"{l}\",";
+                    Data += $"\"{q[l]}\",";
+                }
+                Labels += "]";
+                Data += "]";
+
+
+            }
+
+
+            <button onclick="func2(@i2, '@Text2[i2-1]',   @Labels,@Data)">Тык</button>
+            <span>@Text2[i2-1]</span>
+            <canvas id="checkBox-@i2">
+            </canvas>
+
+
+
+        </div>
+    }
+
+    @foreach(var q in Answer3)
+    {
+        i3++;
+
+        <div class="input-div">
+            @{
+                int kl= 1;
+            }
+            <span>@Text3[i3-1]</span>
+            @foreach(var l in q)
+            {
+                <span>@kl) @l</span>
+                kl++;
+            }
+        </div>
+    }
+
+    @foreach (var q in Answer4)
+    {
+        i4++;
+        <div class="radio-div">
+
+            @{
+                string Labels = "[";
+                string Data = "[";
+
+                foreach (var l in q.Keys)
+                {
+                    Labels += $"\"{l}\",";
+                    Data += $"\"{q[l]}\",";
+                }
+                Labels += "]";
+                Data += "]";
+
+
+            }
+
+
+            <button onclick="func4(@i4, '@Text4[i4-1]',   @Labels,@Data)">Тык</button>
+            <span>@Text4[i4-1]</span>
+                <canvas id="donutSelect-@i4">
+            </canvas>
+
+
+
+        </div>
+    }
+
+</div>

@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\js\Index.js" />
+    <Content Remove="wwwroot\js\TestAction.js" />
+    <Content Remove="wwwroot\js\TestAnalizer.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\Index.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\TestAction.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\TestAnalizer.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\Index.js" />
+    <None Include="wwwroot\js\TestAction.js" />
+    <None Include="wwwroot\js\TestAnalizer.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AppTest\AppTest.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Files\" />
+    <Folder Include="wwwroot\Новая папка\" />
+  </ItemGroup>
+
+</Project>

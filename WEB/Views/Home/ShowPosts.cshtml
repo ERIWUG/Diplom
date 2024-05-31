@@ -1,0 +1,115 @@
+﻿@using AppTest.Models.Entities
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    
+    
+
+    int Mode = ViewBag.Mode;
+    int i = 0;
+}
+<HeadContent>
+    <link rel="stylesheet" href="~/css/CommentSection.css" asp-append-version="true" />
+    
+</HeadContent>
+
+<div class="preview-page">
+    @if(Mode==1){
+        PostEntity Post = ViewBag.Post;
+         <div class="post-div">
+                            <div class="post-information">
+                                <div class="post-header">
+                                    <p>@Post.UserPage.User.Login</p>
+                                    <div class="post-buttontime">
+                                        <p>@Post.time</p>
+                                       
+                                    </div>
+                                
+                                </div>
+
+                                <div class="post-text">
+                    <p>@Post.Title</p>
+                    <p>@Post.Text</p>
+                    @foreach (var q in Post.Images)
+                                    {
+                                        <img src="@q.src"></img>
+                                    }
+                                </div>
+                            </div>
+
+                            <hr/>
+        </div>
+
+    }
+    else
+    {
+        CommentEntity Comment = ViewBag.Comment;
+        
+        <div class="post-div">
+            @if (Comment.Post is not null)
+            {
+                <div class="post-information">
+                <div class="post-header">
+                   
+                    <p>@Comment.Post.UserPage.User.Login</p>
+                    <div class="post-buttontime">
+                        <p>@Comment.Post.time</p>
+
+                    </div>
+
+                </div>
+
+                <div class="post-text">
+                    <p>@Comment.Post.Title</p>
+                    <p>@Comment.Post.Text</p>
+                    @foreach (var q in Comment.Post.Images)
+                    {
+                        <img src="@q.src"></img>
+                    }
+                </div>
+            </div>
+            }
+            <hr />
+        
+
+
+            <div class="comment-section">
+               
+                    <div class="comment-div">
+                        <div class="comment-header">
+                            @if (Comment.User.IsVerified)
+                            {
+                                <a href="/UserPage/@Comment.User.Login"><p>@Comment.User.Login ☑</p></a>
+
+                            }
+                            else
+                            {
+                                <a href="/UserPage/@Comment.User.Login"><p>@Comment.User.Login </p></a>
+                            }
+
+                            <div class="post-buttontime">
+                                <p>@Comment.Time</p>
+                               
+                            </div>
+                        </div>
+
+                        <div class="comment-text">
+                            @Comment.Text
+
+                            @foreach (var b in Comment.Images)
+                            {
+                                <img src="@b.src"></img>
+                            }
+                        </div>
+
+
+                    </div>
+                
+            </div>
+            <hr />
+        </div>
+    }
+
+
+
+
+</div>

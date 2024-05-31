@@ -1,0 +1,67 @@
+﻿a:visited{
+    color:black;
+}
+
+a:active{
+    color:black;
+}
+a{
+    font-size:14px;
+}
+
+input{
+    font-size:16px;
+}
+
+.href-td{
+    background-color:white;
+    padding-left:10px;
+    padding-right:10px;
+    border:1px solid;
+    border-radius:3px;
+    border-color:#808080;
+    align-self:center;
+}
+#AddButton{
+    font-size:15px;
+    margin-bottom:7px;
+    border: 1px outset;
+    background-color:antiquewhite;
+    padding:7px;
+    border-radius:15px;
+}
+#AddButton:hover{
+    background-color:#cfbea0;
+    cursor:pointer;
+}
+
+#SubmitButton {
+    margin-top: 10px;
+    margin-right: 15px;
+    font-size: 15px;
+    border: 1px outset;
+    background-color: antiquewhite;
+    padding: 7px;
+    border-radius: 15px;
+}
+#SubmitButton:hover {
+    background-color: #cfbea0;
+    cursor: pointer;
+}
+#ResetButton {
+    font-size: 15px;
+    border: 1px outset;
+    background-color: antiquewhite;
+    padding: 7px;
+    border-radius: 15px;
+}
+#ResetButton:hover {
+    background-color: #cfbea0;
+    cursor: pointer;
+}
+.CheckDiv {
+    width: 23px;
+    height: 23px;
+    border: 1px outset;
+    background-color:#ffffff;
+}
