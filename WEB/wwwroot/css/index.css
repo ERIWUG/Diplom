@@ -60,7 +60,7 @@
 }
 
 .test-description {
-    max-width: 250px;
+    max-width: 300px;
     
     height:fit-content;
 }
@@ -192,4 +192,8 @@
 
 #extend-town-button {
     margin-top: 10px;
+}
+
+.test-name{
+    max-width:300px;
 }

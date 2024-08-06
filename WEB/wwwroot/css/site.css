@@ -120,3 +120,6 @@ footer {
 #search-button:hover{
     cursor:pointer;
 }
+.navigation-item>form{
+    margin-right:15px;
+}

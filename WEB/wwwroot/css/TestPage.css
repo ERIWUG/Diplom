@@ -54,6 +54,7 @@
     padding:10px;
     margin-bottom:15px;
     border:1px solid #dedede;
+    max-width:60%;
 }
 
 .test-button-section{
@@ -115,6 +116,7 @@
         width: fit-content;
         border: 1px solid;
         margin-bottom: 20px;
+        color:black;
     }
 
 .author-block>a>p{

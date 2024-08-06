@@ -10,24 +10,22 @@
     <div class="body-block">
         <form asp-action="CreateTest" asp-controller="Home" method="post" enctype="multipart/form-data">
             <input type="hidden" id="AllAnswerCount" value="0"></input>
+            <div class="some-class">
             <label>Информация о тесте:</label>
             <input type="text" required placeholder="Наименование анкеты" name="TestName"></input>
+            </div>
             <textarea placeholder="Описание анкеты" required name="TestDescription"></textarea>
            
             <div class="advansed-options">
                 <div class="Visibility-div">
                     <input type="checkbox" value="true" name="isClosed">
-                    <label>Сделать тест закрытым</label>
+                    <label>Сделать анкету закрытой</label>
                     </input>
                     <input type="checkbox" value="true" name="isNeedAuthentification">
-                    <label>Скрыть тест от незарегистрированных пользователей</label>
+                    <label>Скрыть анкету от незарегистрированных пользователей</label>
                     </input>
                 </div>
-                <div class="Age-div">
-                    <input type="checkbox" id="AgeCheck" onchange="AgeShow()"><label>Есть ли требования к возрасту?</label></input>
-                    <input type="number" id="MinAge" value="0" style="display:none" name="minAge" placeholder="Минимальный возраст"></input>
-                    <input type="number" id="MaxAge" value="0" style="display:none" name="maxAge" placeholder="Максимальный возраст"></input>
-                </div>
+                
                 <div class="Country-div">
                     <input type="checkbox" onchange="CountryShow()" id="CountryCheck"><label>Есть ли требования к стране проживания?</label></input>
                     <input type="text" id="CountryInput" style="display:none" name="Country" placeholder="Страна"></input>
@@ -43,7 +41,7 @@
 
             <input type="hidden" value="@User.Identity.Name"></input>
             <div>
-                <label>Вопросы к тесту:</label>
+                <label>Вопросы к анкете:</label>
                 <input type="button" value="+" onclick="AddQuestion()"></input>
             </div>
             <input type="hidden" value="1" id="QuestionAmount"></input>

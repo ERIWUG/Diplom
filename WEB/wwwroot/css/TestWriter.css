@@ -1,0 +1,21 @@
+﻿.body-block>form {
+    display:flex;
+    flex-direction:column;
+
+}
+
+
+.body-block{
+    display:flex;
+    justify-content:flex-start;
+}
+
+.QuestionBlock>input{
+  
+}
+
+.AnswerBlock{
+    display:flex;
+    flex-direction:column;
+    margin-left:40px;
+}

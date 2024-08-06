@@ -76,3 +76,90 @@ function HideFilter(a) {
             break;
     }
 }
+
+
+function Find(a) {
+    
+
+
+
+    switch (a) {
+        case 1:
+            
+            if (document.getElementById("search-country").value.length == 0) {
+                for (let element of document.getElementsByClassName("visual-label-country")) {
+                    element.style.display = "none";
+                    element.checked = false;
+                }
+                for (let element of document.getElementsByClassName("always-visual-label-country")) {
+                    element.style.display = "flex"
+                }
+                
+                document.getElementById("extend-country-button").style.display = "flex";
+                break;
+            }
+
+            document.getElementById("extend-country-button").style.display = "none";
+
+            for (let element of document.getElementsByClassName("always-visual-label-country")) {
+                if (element.innerHTML.toLowerCase().indexOf(document.getElementById("search-country").value.toLowerCase()) == -1) {
+                    element.checked = false;
+                    element.style.display = "none";
+                }
+                else {
+                    element.style.display = "flex";
+                }
+            }
+            for (let element of document.getElementsByClassName("visual-label-country")) {
+                if (element.innerHTML.toLowerCase().indexOf(document.getElementById("search-country").value.toLowerCase()) == -1) {
+                    element.checked = false;
+                    element.style.display = "none";
+                }
+                else {
+                    element.style.display = "flex";
+                }
+            }
+
+            break;
+        case 2:
+            if (document.getElementById("search-town").value.length == 0) {
+                alert("TWO");
+                for (let element of document.getElementsByClassName("visual-label-town")) {
+                    alert(element.innerHTML);
+                    element.style.display = "none";
+                    element.checked = false;
+                }
+                alert("one");
+                for (let element of document.getElementsByClassName("always-visual-label-town")) {
+                    alert(element.innerHTML);
+                    element.style.display = "flex"
+                }
+                
+                document.getElementById("extend-town-button").style.display = "flex";
+                break;
+            }
+
+            document.getElementById("extend-town-button").style.display = "none";
+
+
+            for (let element of document.getElementsByClassName("always-visual-label-town")) {
+                if (element.innerHTML.toLowerCase().indexOf(document.getElementById("search-town").value.toLowerCase()) == -1) {
+                    element.checked = false;
+                    element.style.display = "none";
+                }
+                else {
+                    element.style.display = "flex";
+                }
+            }
+            for (let element of document.getElementsByClassName("visual-label-town")) {
+                if (element.innerHTML.toLowerCase().indexOf(document.getElementById("search-town").value.toLowerCase()) == -1) {
+                    element.checked = false;
+                    element.style.display = "none";
+                }
+                else {
+                    element.style.display = "flex";
+                }
+            }
+            break;
+    }
+}

@@ -87,9 +87,6 @@ function ShowSubmitComment(a) {
         Module.style.display = "block";
         Module.style.transform = "translate(-50 %, -50 %)";
 
-
-
-
         var ModuleDiv = document.createElement("div");
 
         ModuleDiv.style.position = "absolute";

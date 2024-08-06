@@ -1,38 +1,24 @@
 using AppTest.Models.Entities;
 using AppTest.Models;
-
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-
 using System.Data;
-using System.IO;
-
-
-
+using System.Reflection.Metadata.Ecma335;
+using static System.Net.Mime.MediaTypeNames;
+using Microsoft.AspNetCore.Identity;
 namespace WEB.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private AppDbContext db = new AppDbContext();
-
         private IWebHostEnvironment _appEnvironment;
-
         public HomeController(ILogger<HomeController> logger, IWebHostEnvironment appEnvironment)
         {
             _appEnvironment = appEnvironment;
             _logger = logger;
         }
-
-
-
-
-
-
-
-
         public IActionResult LoginPage()
         {
             return View();
@@ -67,8 +53,6 @@ namespace WEB.Controllers
 
             return View();
         }
-
-
         [HttpPost]
         [Route("/Home/IndexFiltered")]
         public IActionResult IndexFiltered()
@@ -146,8 +130,6 @@ namespace WEB.Controllers
 
             return View();
         }
-
-
         [Authorize]
         [HttpPost]
         public RedirectResult AddCommentTest()
@@ -169,13 +151,10 @@ namespace WEB.Controllers
         [Route("/Home/Search/")]
         public IActionResult SearchPage()
         {
-
             string text = Request.Form["SearchField"];
             List<TestEntity> tests = [];
             List<UserEntity> users = [];
-
             bool flag = false;
-
             UserEntity? userEntity = null;
 
             try
@@ -186,43 +165,31 @@ namespace WEB.Controllers
             {
                 userEntity = null;
             }
-
-
-
             flag = userEntity is not null;
-
             foreach (var q in db.Tests.ToList())
             {
                 if (q.Name.ToLower().IndexOf(text.ToLower()) != -1)
                 {
                     tests.Add(q);
                 }
-
                 if ((q.Author.Login.ToLower().IndexOf(text.ToLower()) != -1) && (flag))
                 {
-
-
                     if (!users.Contains(q.Author))
                     {
                         users.Add(q.Author);
                     }
-
                 }
-
             }
-
             if (flag)
             {
                 tests.AddRange(userEntity.Tests);
             }
-
             ViewBag.Users = users;
             ViewBag.Tests = tests;
             ViewBag.Text = text;
 
             return View();
         }
-
         [Authorize]
         [HttpPost]
         public RedirectResult ReportTest()
@@ -235,7 +202,6 @@ namespace WEB.Controllers
 
             return Redirect($"/Home/Test/{Request.Form["TestID"]}");
         }
-
         [Authorize]
         [Route("/Home/ReportPost/{PostID:int}")]
         public RedirectResult ReportPost(int PostID)
@@ -248,7 +214,6 @@ namespace WEB.Controllers
 
             return Redirect($"/UserPage/{post.UserPage.User.Login}");
         }
-
         [Authorize]
         [Route("/Home/ReportComment/{CommentID:int}")]
         public RedirectResult ReportComment(int CommentID)
@@ -270,8 +235,6 @@ namespace WEB.Controllers
 
 
         }
-
-
         [Route("/Home/Test/{TestID:int}")]
         public IActionResult TestPage(int TestID)
         {
@@ -296,13 +259,11 @@ namespace WEB.Controllers
 
             return View();
         }
-
         [Authorize]
         public IActionResult GenerateTest()
         {
             return View();
         }
-
         [Authorize]
         [HttpPost]
         public async Task<RedirectResult> AddComment()
@@ -321,17 +282,12 @@ namespace WEB.Controllers
 
             return Redirect("/UserPage/" + Owner);
         }
-
         [Route("/Home/Registration")]
         public IActionResult RegistrationForm()
         {
             ViewBag.Users = db.Users.AsNoTracking().Select(c => c.Login).ToArray();
             return View();
         }
-
-
-
-
         [Authorize]
         [HttpPost]
         public async Task<RedirectResult> AddPost()
@@ -355,11 +311,8 @@ namespace WEB.Controllers
             ViewBag.Users = db.Users.ToListAsync().Result;
             return View();
         }
-
-
         [Authorize(Roles = "Admin")]
         [Route("/Home/AdminPanel/Reports")]
-
         public IActionResult AdminPanelReports() {
             ViewBag.Tests = db.Tests.Where(c => c.Reports.Count > 0).ToList();
             ViewBag.Comments = db.Comments.Where(c => c.Reports.Count > 0).ToList();
@@ -368,27 +321,89 @@ namespace WEB.Controllers
             return View();
         }
 
+        [Authorize]
+        [HttpPost]
+        public RedirectResult TestRewriter()
+        {
+            var q = Convert.ToInt16(Request.Form["TestID"]);
+            var Test = db.Tests.Single(c => c.Id == q);
+
+            var QuestionText = Request.Form["QuestionText"];
+            int i = 0;
+            int j = 0;
+
+            foreach(var l in Test.TestContents)
+            {
+                j = 0;
+                
+                l.Text = QuestionText[i];i++;
+                var AnswerText = Request.Form[$"Answer-{i}"];
+                
+                foreach (var k in l.Answers)
+                {
+                    k.Text = AnswerText[j];j++;
+                }
+
+
+
+            }
+
+            db.SaveChanges();
+
+            return Redirect("/Home/Index");
+        }
+
+
+
         [Authorize(Roles = "Admin")]
         public RedirectResult TestProcess()
         {
+
+            TestEntity test = db.Tests.Single(c => c.Id == Convert.ToInt16(Request.Form["TestID"]));
+
             if (Convert.ToInt16(Request.Form["TestChoise"]) == 1)
             {
-                db.Tests.Single(c => c.Id == Convert.ToInt16(Request.Form["TestID"])).Reports.Clear();
-                db.Tests.Single(c => c.Id == Convert.ToInt16(Request.Form["TestID"])).TestResults.Clear();
-                db.Tests.Single(c => c.Id == Convert.ToInt16(Request.Form["TestID"])).TestContents.Clear();
-                db.Tests.Remove(db.Tests.Single(c => c.Id == Convert.ToInt16(Request.Form["TestID"])));
+                foreach(var c in test.TestResults)
+                {
+                    db.TestResults.Remove(c);
+                }
+                foreach (var c in test.Reports)
+                {
+                    db.Reports.Remove(c);
+                }
+                foreach (var c in test.Comments)
+                {
+                    db.Comments.Remove(c);
+                }
+
+
+                foreach(var c in test.TestContents)
+                {
+                   foreach(var q in c.Answers)
+                    {
+                        db.Answers.Remove(q);
+                    }
+                    db.Tickets.Remove(c);
+                }
+
+                test.TestResults.Clear();
+                test.TestContents.Clear();
+                db.Tests.Remove(test);
 
             }
             else
             {
-                db.Tests.Single(c => c.Id == Convert.ToInt16(Request.Form["TestID"])).Reports.Clear();
+                foreach (var c in test.Reports)
+                {
+                    db.Reports.Remove(c);
+                }
+                test.Reports.Clear();
             }
 
             db.SaveChanges();
 
             return Redirect("/Home/AdminPanel/Reports");
         }
-
         [Authorize(Roles = "Admin")]
         public RedirectResult CommentProcess()
         {
@@ -406,12 +421,15 @@ namespace WEB.Controllers
 
             return Redirect("/Home/AdminPanel/Reports");
         }
-
         [Authorize(Roles = "Admin")]
         public RedirectResult PostProcess()
         {
             if (Convert.ToInt16(Request.Form["TestChoise"]) == 1)
             {
+                foreach (var c in db.Posts.Single(c => c.Id == Convert.ToInt16(Request.Form["TestID"])).Comments)
+                {
+                    db.Comments.Remove(c);
+                }
                 db.Posts.Remove(db.Posts.Single(c => c.Id == Convert.ToInt16(Request.Form["TestID"])));
             }
             else
@@ -423,8 +441,6 @@ namespace WEB.Controllers
 
             return Redirect("/Home/AdminPanel/Reports");
         }
-
-
         [Authorize(Roles = "Admin")]
         [Route("/Home/ShowPosts/{ItemId:int}/{ModeId:int}")]
         public IActionResult ShowPosts(int ItemId, int ModeId)
@@ -446,82 +462,49 @@ namespace WEB.Controllers
 
             return View();
         }
-
-
-
-
         [HttpPost]
         public async Task<RedirectResult> TestAnalyze()
         {
             TestResultEntity testResult = new TestResultEntity();
             UserEntity? MyUser;
-
-            if (!User.IsInRole("User"))
-            {
-                MyUser = null;
-            }
-            else
-            {
-                MyUser = db.Users.Single(c => c.Login == User.Identity.Name);
-            }
-            
-            testResult.User = MyUser;
-
+            if (!User.IsInRole("User")){ MyUser = null; }
+            else{ MyUser = db.Users.Single(c => c.Login == User.Identity.Name); } testResult.User = MyUser;
             var TestID = Convert.ToInt16(Request.Form["TestID"]);
-
-            var Test = db.Tests.Single(c => c.Id == TestID);
-
-            
-
-            int i = 0;
-            #region Delete existed Test
+            var Test = db.Tests.Single(c => c.Id == TestID); int i = 0;
             bool flag = false;
-            if (MyUser is not null)
-            {
-                foreach (var c in MyUser.Results)
-                {
+            if (MyUser is not null){
+                foreach (var c in MyUser.Results){
                     flag = c.Test.Id == TestID;
-                    if (flag)
-                    {
+                    if (flag){
                         i = c.Id;
                         break;
                     }
                 }
             }
-            if (flag)
-            {
+            if (flag){
                 Test.TestResults.Remove(Test.TestResults.Single(c => c.Id == i));
                 MyUser.Results.Remove(MyUser.Results.Single(c => c.Id == i));
             }
-            #endregion
-
             testResult.Test = Test;
-
             i = Test.TestContents.Count;
             List<AnswerEntity> Answers = new List<AnswerEntity>();
-
-            for(int j = 0; j < i; j++)
-            {
-                switch (Test.TestContents[j].Answers[0].AnswerType)
-                {
+            for(int j = 0; j < i; j++){
+                switch (Test.TestContents[j].Answers[0].AnswerType){
                     case 1:
                         Answers.Add(Test.TestContents[j].Answers.Single(c=>c.Id == Convert.ToInt16(Request.Form[$"Answers-{j + 1}"])));
                         break;
                     case 2:
-                        foreach (var q in Request.Form[$"Answers-{j+1}"])
-                        {
+                        foreach (var q in Request.Form[$"Answers-{j+1}"]){
                             Answers.Add(Test.TestContents[j].Answers.Single(c => c.Id == Convert.ToInt16(q)));
                         }
                         break;
                     case 3:
-                        Answers.Add(new AnswerEntity()
-                        {
+                        Answers.Add(new AnswerEntity(){
                             Text = Request.Form[$"Answers-{j + 1}"],
                             Value = Test.TestContents[j].Answers[0].Value,
                             AnswerType=3, Results = new List<TestResultEntity>() {testResult },
                         }
                         );
-
                         break;
                     case 4:
                         Answers.Add(Test.TestContents[j].Answers.Single(c => c.Id == Convert.ToInt16(Request.Form[$"Answers-{j + 1}"])));
@@ -529,19 +512,10 @@ namespace WEB.Controllers
                     default:
                         break;
                 }
-            
             }
-            testResult.Answers = Answers;
-            db.TestResults.Add(testResult);
-
-          
-            
-            
-            db.SaveChanges();
-
-            return Redirect($"/Home/Index");
+            testResult.Answers = Answers;db.TestResults.Add(testResult);
+            db.SaveChanges(); return Redirect($"/Home/Index");
         }
-
         [Authorize]
         [HttpPost]
         public RedirectResult DeleteComment()
@@ -556,7 +530,6 @@ namespace WEB.Controllers
 
             return Redirect($"/UserPage/{Request.Form["Login"]}");
         }
-
         [Authorize]
         [HttpPost]
         public RedirectResult DeleteCommentTest()
@@ -571,10 +544,6 @@ namespace WEB.Controllers
 
             return Redirect($"/Home/Test/{Request.Form["Test"]}");
         }
-
-
-
-
         [Route("/UserPage/{login:maxlength(99)}/Tests")]
         public IActionResult TestsInformation(string login)
         {
@@ -585,7 +554,6 @@ namespace WEB.Controllers
 
             return View();
         }
-
         [Route("/UserPage/{login:maxlength(99)}/Tests/{testid:int}")]
         public IActionResult TestAnalizer(string login, int testid)
         {
@@ -715,8 +683,27 @@ namespace WEB.Controllers
             ViewBag.Text3 = Text3;
             ViewBag.Text4 = Text4;
 
+            ViewBag.Test = test;
+
             return View();
         }
+
+        [Authorize]
+        [Route("/Test/{testid:int}/Write")]
+        public IActionResult TestWriter(int testid)
+        {
+            var test = db.Tests.Single(c => c.Id == testid);
+
+            ViewBag.Test = test;
+
+
+
+            return View();
+        }
+
+
+
+
 
         [HttpPost]
         [Route("/UserPage/{login:maxlength(99)}/Tests/{testid:int}")]
@@ -729,18 +716,11 @@ namespace WEB.Controllers
 
             return View();
         }
-
         [Authorize]
         [HttpPost]
         public async Task<RedirectResult> CreateTest(List<IFormFile> AnswerImage, List<IFormFile> QuestionImage)
         {
-            
-
-
-
-
-
-            
+           
             var prom = Request.Form["AmountQuestion"].ToList();
             var QuestionText = Request.Form[$"QuestionText"].ToList();
             string TownRequirment = Request.Form["Town"];
@@ -851,8 +831,6 @@ namespace WEB.Controllers
           
             return Redirect("/Home/Index");
         }
-
-        
         public IActionResult TestAction(int TestId)
         {
             int id = Int32.Parse(Request.Form["TestID"]);
@@ -862,14 +840,87 @@ namespace WEB.Controllers
                 .Result;
             return View();
         }
+        [HttpPost]
+        [Authorize]
+        public RedirectResult DeletePost()
+        {
+            if (User.Identity.Name == Request.Form["Login"])
+            {
+                var Post = db.Posts.Single(c => c.Id == Convert.ToInt16(Request.Form["PostID"]));
+
+                foreach(var c in Post.Comments) {
+                    db.Comments.Remove(c);
+
+
+                    foreach(var q in c.Reports)
+                    {
+                        db.Reports.Remove(q);
+                    }
+
+                }
+                foreach (var c in Post.Reports)
+                {
+                    db.Reports.Remove(c);
+                }
+                db.Posts.Remove(Post);
+            }
+            db.SaveChanges();
+            return Redirect($"/UserPage/{Request.Form["Login"]}");
+        }
+        [Authorize]
+        [Route("/Home/DeleteTest/{TestID:int}")]
+        public RedirectResult DeleteTest(int TestID)
+        {
+            var test = db.Tests.Single(c => c.Id == TestID);
+
+
+            if (test.Author.Login == User.Identity.Name)
+            {
+                foreach (var c in test.TestResults)
+                {
+                    db.TestResults.Remove(c);
+                }
+                foreach (var c in test.Reports)
+                {
+                    db.Reports.Remove(c);
+                }
+                foreach (var c in test.Comments)
+                {
+                    db.Comments.Remove(c);
+                }
+
+
+                foreach (var c in test.TestContents)
+                {
+                    foreach (var q in c.Answers)
+                    {
+                        db.Answers.Remove(q);
+                    }
+                    db.Tickets.Remove(c);
+                }
+
+                test.TestResults.Clear();
+                test.TestContents.Clear();
+                db.Tests.Remove(test);
+                db.SaveChanges();
+            }
+           return Redirect($"/UserPage/{test.Author.Login}/Tests");
+
+
+
+
+        }
 
         public IActionResult Privacy()
         {
             return View();
         }
-    
     }
-
-
-
 }
+
+
+
+
+
+
+

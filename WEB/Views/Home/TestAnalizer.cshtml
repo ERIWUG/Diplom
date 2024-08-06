@@ -6,6 +6,9 @@
     List<List<string>> Answer3 = ViewBag.Answer3;
     List<Dictionary<string, int>> Answer4 = ViewBag.Answer4;
 
+    TestEntity Test = ViewBag.Test; 
+
+
     List<string> Text1 = ViewBag.Text1;
     List<string> Text2 = ViewBag.Text2;
     List<string> Text3 = ViewBag.Text3;
@@ -25,7 +28,7 @@
 
 
 <div class="body-block">
-    
+    <a href="/Test/@Test.Id/Write">Переписать анкету</a>
     <script src="~/js/TestAnalizer.js"></script>
     @foreach(var q in Answer1)
     {
@@ -48,7 +51,7 @@
             }
 
 
-            <button onclick="func(@i1,'@Text1[i1-1]', @Labels,@Data)">Тык</button>
+            <button onclick="func(@i1,'@Text1[i1-1]', @Labels,@Data)">Посмотреть иннформацию</button>
             <span>@Text1[i1-1]</span>
             <canvas id="donut-@i1">
             </canvas>
@@ -82,7 +85,7 @@
             }
 
 
-            <button onclick="func2(@i2, '@Text2[i2-1]',   @Labels,@Data)">Тык</button>
+            <button onclick="func2(@i2, '@Text2[i2-1]',   @Labels,@Data)">Посмотреть иннформацию</button>
             <span>@Text2[i2-1]</span>
             <canvas id="checkBox-@i2">
             </canvas>
@@ -130,7 +133,7 @@
             }
 
 
-            <button onclick="func4(@i4, '@Text4[i4-1]',   @Labels,@Data)">Тык</button>
+            <button onclick="func4(@i4, '@Text4[i4-1]',   @Labels,@Data)">Посмотреть иннформацию</button>
             <span>@Text4[i4-1]</span>
                 <canvas id="donutSelect-@i4">
             </canvas>

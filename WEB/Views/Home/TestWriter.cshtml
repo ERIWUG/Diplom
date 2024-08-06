@@ -1,0 +1,57 @@
+﻿@using AppTest.Models.Entities
+@{
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+
+
+
+    TestEntity Test = ViewBag.Test;
+    int i = 0;
+}
+
+<HeadContent>
+    
+    <link rel="stylesheet" href="~/css/TestWriter.css" asp-append-version="true" />
+</HeadContent>
+
+
+
+
+<div class="body-block">
+    <form asp-action="TestRewriter" asp-controller="Home" method="post">
+
+    
+
+
+    @foreach(var q in Test.TestContents)
+    {
+            i++;
+
+            <div class="QuestionBlock">
+            <input type="text" name="QuestionText" value="@q.Text">
+            <div class="AnswerBlock">
+                @foreach(var l in q.Answers)
+                {
+                    <div class="rapidelem">
+                    <input type="text" name="Answer-@i" value="@l.Text"></input>
+                    <input type="text" name="AnswerMode-@i" value="@l.AnswerType"></input>
+                        </div>
+                }
+            </div>
+            </div>
+
+
+        
+
+
+
+    }
+    <input type="hidden" name="TestID" value="@Test.Id"></input>
+        <input type="submit" value="Переписать анкету"></input>
+    </form>
+
+
+
+
+
+
+</div>

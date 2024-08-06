@@ -7,10 +7,9 @@
     int TestCountAll = ViewBag.CountAll;
 
 }
-
 <HeadContent>
-
     <link rel="stylesheet" href="~/css/TestsInformation.css" asp-append-version="true" />
+    <script src="~/js/TestInformation.js" asp-append-version="true"></script>
 </HeadContent>
 
 <div class="body-block">
@@ -23,7 +22,8 @@
                         <label>@a.Name</label>
                 
                         <div class="test-buttons">
-                            <button onclick="">Редактировать</button>
+                        <button onclick="location.href='/Home/Test/@a.Id';">Перейти к анкете</button>
+                        <button onclick="ShowSubmitComment(@a.Id)" style="margin-left:10px;">Удалить анкету</button>
                         <button id="left-test-button" onclick="location.href='/UserPage/@MyUser.Login/Tests/@a.Id';">Анализ Результатов</button>
                         </div>
                     </div>
@@ -65,6 +65,4 @@
             }
         }
     }
-
-
 </div>

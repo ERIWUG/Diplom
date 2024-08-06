@@ -1,11 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Reflection.Emit;
-using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using AppTest.Models.Entities;
-using Microsoft.Identity.Client;
-using AppTest.Migrations;
-
 namespace AppTest.Models
 {
     public class AppDbContext : DbContext
@@ -31,9 +25,13 @@ namespace AppTest.Models
         public virtual DbSet<CommentEntity> Comments { get; set; }
         public virtual DbSet<PostEntity> Posts { get; set; }
         public virtual DbSet<ReportEntity> Reports { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            
-        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder){ }
     }
 }
+
+
+
+
+
+
+

@@ -1,12 +1,8 @@
-﻿
-using AppTest.Models;
+﻿using AppTest.Models;
 using AppTest.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Metrics;
-using System.Dynamic;
-
 namespace WEB.Controllers
 {
     public class UserController : Controller
@@ -28,7 +24,6 @@ namespace WEB.Controllers
 
             return View();
         }
-
         [Authorize]
         [Route("/AdminPanel/{login:maxlength(99)}/Role")]
         public IActionResult UserRole(string login)
@@ -68,7 +63,6 @@ namespace WEB.Controllers
             ViewBag.Roles = q;
             return View();
         }
-
         [HttpPost]
         [Route("/api/CreateNewUser")]
         public async Task<RedirectResult> CreateNewUser()
@@ -95,7 +89,6 @@ namespace WEB.Controllers
 
             return Redirect("/Home/LoginPage");
         }
-
         [Authorize]
         [HttpPost]
         public RedirectResult AddFriend()
@@ -111,7 +104,6 @@ namespace WEB.Controllers
 
             return Redirect($"/UserPage/{user2.Login}");
         }
-
         [Authorize]
         [HttpPost]
         public RedirectResult Unfriend()
@@ -127,9 +119,6 @@ namespace WEB.Controllers
 
             return Redirect($"/UserPage/{user2.Login}");
         }
-       
-
-
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<RedirectResult> EditUser()
@@ -158,15 +147,9 @@ namespace WEB.Controllers
                         UserEntity Us = new UserEntity()
                         {
                             Login = Request.Form["login"].ToList()[i],
-                            Name = Request.Form["name"].ToList()[i],
-                            Surname = Request.Form["surname"].ToList()[i],
-                            PhoneNumber = Request.Form["phone"].ToList()[i],
-                            Age = Convert.ToInt16(Request.Form["age"].ToList()[i]),
-                            Country = Request.Form["country"].ToList()[i],
-                            Town = Request.Form["town"].ToList()[i],
+                            Surname = Request.Form["email"].ToList()[i],
                             Password = Request.Form[$"password-{ChangeID[i]}"],
                             IsVerified = Request.Form["Verify"].ToList().Contains(NewID),
-                            
                         };
 
                         Us.Roles.Add(db.Roles.Single(c => c.Name == "User"));
@@ -177,12 +160,7 @@ namespace WEB.Controllers
                     case 3:
                         var c = db.Users.Single(c => c.Id == ChangeID[i]);
                         c.Login = Request.Form["login"].ToList()[i];
-                        c.Name = Request.Form["name"].ToList()[i];
-                        c.Surname = Request.Form["surname"].ToList()[i];
-                        c.PhoneNumber = Request.Form["phone"].ToList()[i];
-                        c.Age = Convert.ToInt16(Request.Form["age"].ToList()[i]);
-                        c.Country = Request.Form["country"].ToList()[i];
-                        c.Town = Request.Form["town"].ToList()[i];
+                        c.Email = Request.Form["email"].ToList()[i];
                         c.IsVerified = Request.Form["Verify"].ToList().Contains(Convert.ToString(ChangeID[i]));
                         db.SaveChanges();
 
@@ -204,9 +182,6 @@ namespace WEB.Controllers
             ViewBag.Friends = db.Users.Single(c => c.Login == login).Friends;
             return View();
         }
-
-
-
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<RedirectResult> RoleChange()
@@ -229,3 +204,9 @@ namespace WEB.Controllers
 
     }
 }
+
+
+
+
+
+

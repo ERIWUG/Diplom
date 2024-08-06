@@ -4,6 +4,15 @@
     flex-direction:column;
 }
 
+.body-block>form{
+display:flex;
+flex-direction:column;
+}
+
+.body-block>form>*{
+    padding:7px;
+}
+
 #testModule-div{
     margin-bottom:60px;
 }
@@ -20,6 +29,9 @@
 
 .question>input{
     height:25px;
+}
+.question>input[type=text]{
+    width:200px;
 }
 
 .answerModule{

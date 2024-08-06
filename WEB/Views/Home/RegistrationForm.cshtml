@@ -18,29 +18,27 @@
     
     <div class="Form-Page">
         @{
-            string j = $"ValidateLogin({Json.Serialize(Users)})";
+            string j = $"TryValidate({Json.Serialize(Users)})";
         }
         <form asp-action="CreateNewUser" asp-controller="User" method="post">
+            <p style="color:red; display:none;" id="PasswordP">*Пароли не совпадают</p>
+            <p style="color:red; display:none;" id="LoginP">*Логин занят</p>
             <div class="loginDiv">
-                <input type="text" id="loginField" onchange=@j placeholder="Логин" name="LoginField"  ></input>
+                <input type="text" id="loginField" minlength="3" onchange=@j placeholder="Логин" name="LoginField"  ></input>
                 <div height="25px" width="25px" id="ChangeField"></div>
                 
             </div>
         <input type="email" placeholder="email" name="EmailField"></input>
             <div class="PasswordDiv">
-                <input type="password" required placeholder="Пароль" id="PasswordField" name="PasswordField"></input>
+                <input type="password" required placeholder="Пароль" onchange=@j id="PasswordField" name="PasswordField"></input>
                 <input type="button" value="O" id="ButtonChangeVisibility" onclick="ChangePassVisibility()"></input>
 
             </div>
 
-        <input type="password" required placeholder=" Подтвердите Пароль"></input>
-        <input type="text" placeholder="Имя" name="NameField"></input>
-            <input type="text" placeholder="Фамилия" name="SurnameField"></input>
-        <input type="tel" pattern="+375-[0-9]{2}-[0-9]{3}-[0-9]{4}" placeholder="Телефон" name="PhoneField"></input>
-        <input type="number" placeholder="Возраст" value="0" name="AgeField"></input>
-        <input type="text" placeholder="Страна" name="CountryField"></input>
-        <input type="text" placeholder="Город" name="TownField"></input>
-        <input type="submit" id="submitButton" disabled value="Регистрация"></input>
+            <input type="password" id="RepeatPasswordField" onchange=@j required placeholder=" Подтвердите Пароль"></input>
+    
+      
+        <input type="submit" disabled id="submitButton" value="Регистрация"></input>
         </form>
     </div>
 

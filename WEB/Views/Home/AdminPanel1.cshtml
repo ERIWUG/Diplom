@@ -21,12 +21,9 @@
             <td></td>
             <td>id</td>
             <td>Login</td>
-            <td>Phone</td>
-            <td>Name</td>
-            <td>Surname</td>
-            <td>Age</td>
-            <td>Country</td>
-            <td>Town</td>
+            <td>Email</td>
+            
+            
             <td>Page</td>
             <td>Roles</td>
             <td>Verif</td>
@@ -46,30 +43,9 @@
                     <input type="text" name="login" readonly value="@c.Login"/>
                 </td>
                 <td>
-                    <input type="text" size="14" onchange="ChangeState(@i)" name="phone" value="@c.PhoneNumber"/>
+                    <input type="text" size="25" onchange="ChangeState(@i)" name="email" value="@c.Email"/>
                 </td>
-                <td>
-                        <input type="text" name="name" onchange="ChangeState(@i)" value="@c.Name" />
-                </td>
-                <td>
-                        <input type="text" name="surname" onchange="ChangeState(@i)" value="@c.Surname" />
-                </td>
-                <td>
-                    @if (c.Age is null)
-                    {
-                            <input type="number" size="4" onchange="ChangeState(@i)" name="age" value="0" />
-                    }
-                    else
-                    {
-                            <input type="number" size="4" onchange="ChangeState(@i)" name="age" value="@c.Age" />
-                    }
-                </td>
-                <td>
-                        <input type="text" size="15" onchange="ChangeState(@i)" name="country" value="@c.Country" />
-                </td>
-                <td>
-                        <input type="text" size="15" onchange="ChangeState(@i)" name="town" value="@c.Town" />
-                </td>
+               
                 <td class="href-td">
                     <a href="/UserPage/@c.Login">Page</a>
                 </td>

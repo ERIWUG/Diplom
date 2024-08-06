@@ -14,14 +14,14 @@ function func(a,name, b, c) {
         arr.push(`rgba(${getRandomInt(1, 255)},${getRandomInt(1, 255)},${getRandomInt(1, 255)},0.2)`);
         arr2.push('rgba(0,0,0,1)');
     }
-
+    
     const ctx = document.getElementById("donut-" + a).getContext('2d');
     const donut = new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: b,
             datasets: [{
-                label: name,
+                label:" ",
                 data: c,
                 backgroundColor: arr,
                 borderColor: arr2,
@@ -55,7 +55,7 @@ function func2(a, name, b, c) {
         data: {
             labels: b,
             datasets: [{
-                label: name,
+                label: " ",
                 data: c,
                 backgroundColor: arr,
                 borderColor: arr2,
@@ -91,7 +91,7 @@ function func4(a, name, b, c) {
         data: {
             labels: b,
             datasets: [{
-                label: name,
+                label: " ",
                 data: c,
                 backgroundColor: arr,
                 borderColor: arr2,

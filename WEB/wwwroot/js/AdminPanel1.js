@@ -41,50 +41,13 @@
               
     var tdPhone = document.createElement("td");
     var InputPhone = document.createElement("input");
-    InputPhone.setAttribute("type", "text");
-    InputPhone.setAttribute("size", "14");
-    InputPhone.setAttribute("name", "phone");
+    InputPhone.setAttribute("type", "email");
+    InputPhone.setAttribute("size", "25");
+    InputPhone.setAttribute("name", "email");
     tdPhone.appendChild(InputPhone);
     tr.appendChild(tdPhone);
                 
-    var tdName = document.createElement("td");
-    var InputName = document.createElement("input");
-    InputName.setAttribute("type", "text");
-    InputName.setAttribute("name", "name");
-    tdName.appendChild(InputName);
-    tr.appendChild(tdName);
-               
-    var tdSurname = document.createElement("td");
-    var InputSurname = document.createElement("input");
-    InputSurname.setAttribute("type", "text");
-    InputSurname.setAttribute("name", "surname");
-    tdSurname.appendChild(InputSurname);
-    tr.appendChild(tdSurname);
-
-    var tdAge = document.createElement("td");
-    var InputAge = document.createElement("input");
-    InputAge.setAttribute("type", "number");
-    InputAge.setAttribute("size", "4");
-    InputAge.setAttribute("name", "age");
-    InputAge.setAttribute("value", "0");
-    tdAge.appendChild(InputAge);
-    tr.appendChild(tdAge);
-
-    var tdCountry = document.createElement("td");
-    var InputCountry = document.createElement("input");
-    InputCountry.setAttribute("type", "text");
-    InputCountry.setAttribute("size", "15");
-    InputCountry.setAttribute("name", "country");
-    tdCountry.appendChild(InputCountry)
-    tr.appendChild(tdCountry);
-               
-    var tdTown = document.createElement("td");
-    var InputTown = document.createElement("input");
-    InputTown.setAttribute("type", "text");
-    InputTown.setAttribute("size", "15");
-    InputTown.setAttribute("name", "town");
-    tdTown.appendChild(InputTown);
-    tr.appendChild(tdTown);
+   
 
     var tdHref = document.createElement("td");
     tdHref.setAttribute("class","href-td")
@@ -106,7 +69,7 @@
     Checkthis2.setAttribute("name", "Verify");
     Checkthis2.setAttribute("value", lastIndex);
     Checkthis2.setAttribute("id", "Verification-" + lastIndex);
-    Checkthis2.setAttribute("onchange", "ChangeState(" + lastIndex + ")");
+  
     tdCheck2.appendChild(Checkthis2);
     tr.appendChild(tdCheck2);
 
@@ -116,7 +79,7 @@
     Checkthis.setAttribute("name", "Deleting");
     Checkthis.setAttribute("value", lastIndex);
     Checkthis.setAttribute("id", "CheckBox-" + lastIndex);
-    Checkthis.setAttribute("onchange", "ChangeState(" + lastIndex + ")");
+   
     tdCheck.appendChild(Checkthis);
     tr.appendChild(tdCheck);
 
